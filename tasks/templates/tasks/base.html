@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>TaskCollab</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'tasks:dashboard' %}">TaskCollab</a>
+        <div class="ml-auto">
+            {% if user.is_authenticated %}
+                <span class="mr-3">Hi {{ user.username }}</span>
+                <a class="btn btn-outline-secondary btn-sm" href="{% url 'tasks:task_create' %}">Create Task</a>
+                <a class="btn btn-outline-danger btn-sm" href="{% url 'tasks:logout' %}">Logout</a>
+            {% else %}
+                <a class="btn btn-outline-primary btn-sm" href="{% url 'tasks:login' %}">Login</a>
+                <a class="btn btn-outline-success btn-sm" href="{% url 'tasks:signup' %}">Sign up</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

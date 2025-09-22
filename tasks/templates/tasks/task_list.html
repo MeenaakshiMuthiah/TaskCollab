@@ -1,0 +1,32 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th><th>Assigned</th><th>Status</th><th>Deadline</th><th>Priority</th><th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for t in tasks %}
+    <tr {% if t.is_overdue %}class="table-danger"{% endif %}>
+      <td>{{ t.title }}</td>
+      <td>{{ t.assigned_to.username }}</td>
+      <td>{{ t.status }}</td>
+      <td>
+        {% if t.deadline < now and t.status == "pending" %}
+          <span style="color:red">{{ t.deadline }}</span>
+        {% else %}
+          {{ t.deadline }}
+        {% endif %}
+      </td>
+      <td>{{ t.get_priority_display }}</td>
+      <td>
+        <a class="btn btn-sm btn-outline-primary" href="{% url 'tasks:task_edit' t.pk %}">Edit</a>
+        <a class="btn btn-sm btn-outline-info" href="{% url 'tasks:task_toggle' t.pk %}">
+          {% if t.status == "completed" %}Mark Pending{% else %}Mark Completed{% endif %}
+        </a>
+      </td>
+    </tr>
+    {% empty %}
+      <tr><td colspan="6">No tasks found.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>

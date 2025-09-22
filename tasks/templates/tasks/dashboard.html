@@ -1,0 +1,52 @@
+{% extends "tasks/base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-md-8">
+    <h3>Your Dashboard</h3>
+
+    <!-- Filters -->
+    <form method="get" class="form-inline mb-3">
+      <label class="mr-2" for="status">Status:</label>
+      <select name="status" id="status" class="form-control mr-2">
+        <option value="">All</option>
+        <option value="pending" {% if request.GET.status == "pending" %}selected{% endif %}>Pending</option>
+        <option value="completed" {% if request.GET.status == "completed" %}selected{% endif %}>Completed</option>
+      </select>
+
+      <label class="mr-2" for="order">Order by:</label>
+      <select name="order" id="order" class="form-control mr-2">
+        <option value="deadline" {% if request.GET.order == "deadline" %}selected{% endif %}>Deadline</option>
+        <option value="priority" {% if request.GET.order == "priority" %}selected{% endif %}>Priority</option>
+      </select>
+
+      <button class="btn btn-primary btn-sm">Apply</button>
+      <a href="{% url 'tasks:export_csv' %}" class="btn btn-success btn-sm ml-2">Export CSV</a>
+    </form>
+
+    <!-- Task List -->
+    {% include "tasks/task_list.html" %}
+  </div>
+
+  <div class="col-md-4">
+    <h4>Analytics</h4>
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Pending
+        <span class="badge badge-primary badge-pill">
+          {{pending_count}}
+        </span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Completed
+        <span class="badge badge-success badge-pill">
+          {{completed_count}}
+        </span>
+      </li>
+    </ul>
+
+    <h4 class="mt-4">Quick Actions</h4>
+    <a href="{% url 'tasks:task_create' %}" class="btn btn-success btn-block mb-2">Create Task</a>
+    <a href="{% url 'tasks:logout' %}" class="btn btn-danger btn-block">Logout</a>
+  </div>
+</div>
+{% endblock %}
