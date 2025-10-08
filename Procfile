@@ -1,1 +1,2 @@
-web: gunicorn taskcollab.wsgi --log-file -
+web: gunicorn taskcollab.wsgi:application --log-file -
+
