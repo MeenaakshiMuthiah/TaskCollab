@@ -7,7 +7,7 @@ SECRET_KEY = "django-insecure-1234567890"  # change for production
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["taskcollab-rcf9.onrender.com"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
