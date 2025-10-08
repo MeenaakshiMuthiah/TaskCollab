@@ -78,3 +78,17 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "tasks:login"
+import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+STATIC_URL = '/static/'
+
+# Folder where collectstatic will put static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Optional: if you have extra static directories
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
